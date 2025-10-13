@@ -31,10 +31,11 @@ public class Main {
         humanPlayer = isHumanFirst ? X : O;
         aiPlayer = isHumanFirst ? O : X;
 
+        board.printBoard();
         Optional<Player> winner;
         do {
-            board.printBoard();
             doMove();
+            board.printBoard();
             winner = board.getWinner();
         } while (winner.isEmpty() && board.hasFreeSpace());
         String gameResult = winner
@@ -90,6 +91,7 @@ public class Main {
     }
 
     private void doAiMove() {
+        println("AI move:");
         try {
             float[] boardState = board.getState().getNetworkInput();
             network.input(boardState);
