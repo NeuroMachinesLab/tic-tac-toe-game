@@ -34,8 +34,10 @@ public class Main {
             board.printBoard();
             doMove();
             winner = board.getWinner();
-        } while (winner == BLANK);
-        if (winner == humanPlayer) {
+        } while (winner == BLANK && board.hasFreeSpace());
+        if (!board.hasFreeSpace()) {
+            println("The game ended in a draw");
+        } else if (winner == humanPlayer) {
             println("Congratulations, you've won!");
         } else {
             println("We're sorry, you lost");
@@ -87,10 +89,34 @@ public class Main {
     }
 
     private void doAiMove() {
-        float[] boardState = board.getState().getNetworkInput();
-        network.input(boardState);
-        network.propagate();
-        int move = Math.round(network.output()[0] * 10);  // network generates output values in 0..0.8 interval
-        board.move(aiPlayer, move);
+        try {
+            float[] boardState = board.getState().getNetworkInput();
+            network.input(boardState);
+            network.propagate();
+            int move = argMax(network.output());
+            board.move(aiPlayer, move);
+        } catch (Exception e) {
+            // incorrect move, do random move
+            while (true) {
+                try {
+                    int move = (int) Math.round(Math.random() * 8);
+                    board.move(aiPlayer, move);
+                    break;
+                } catch (Exception ignore) {
+                }
+            }
+        }
+    }
+
+    private static int argMax(float[] array) {
+        int maxI = 0;
+        float max = array[0];
+        for (int i = 1; i < array.length; i++) {
+            if (array[i] > max) {
+                max = array[i];
+                maxI = i;
+            }
+        }
+        return maxI;
     }
 }

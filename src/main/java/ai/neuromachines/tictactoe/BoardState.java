@@ -19,6 +19,11 @@ public class BoardState {
         this.state[i] = state;
     }
 
+    public boolean hasFreeSpace() {
+        return Arrays.stream(state)
+                .anyMatch(s -> s == BLANK);
+    }
+
     public float[] getNetworkInput() {
         float[] input = new float[state.length];
         int i = 0;

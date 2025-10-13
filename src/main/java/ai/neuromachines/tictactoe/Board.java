@@ -81,4 +81,8 @@ public class Board {
         }
         return BLANK;
     }
+
+    public boolean hasFreeSpace() {
+        return state.hasFreeSpace();
+    }
 }
