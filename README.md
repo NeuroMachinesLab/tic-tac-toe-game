@@ -22,3 +22,86 @@ with the program from [repository [3]](https://github.com/NeuroMachinesLab/tic-t
 [1] [Perceptron](https://github.com/NeuroMachinesLab/perceptron)<br>
 [2] [Q-Learning](https://github.com/NeuroMachinesLab/tic-tac-toe-q-learning)<br>
 [3] [Neural Network](https://github.com/NeuroMachinesLab/tic-tac-toe-network)
+
+### Console interface
+
+Example of one game:
+```shell
+> java -jar .\target\tic-tac-toe-game-1.0.jar
+
+0) O player
+1) X player
+Select a player [0-1]: 1
+
+| 1 | 2 | 3 |
+-------------
+| 4 | 5 | 6 |
+-------------
+| 7 | 8 | 9 |
+
+Move with 'X' to space [1-9]: 6
+
+|   |   |   |
+-------------
+|   |   | X |
+-------------
+|   |   |   |
+
+AI move: 3
+
+|   |   | O |
+-------------
+|   |   | X |
+-------------
+|   |   |   |
+
+Move with 'X' to space [1-9]: 4
+
+|   |   | O |
+-------------
+| X |   | X |
+-------------
+|   |   |   |
+
+AI move: 5
+
+|   |   | O |
+-------------
+| X | O | X |
+-------------
+|   |   |   |
+
+Move with 'X' to space [1-9]: 7
+
+|   |   | O |
+-------------
+| X | O | X |
+-------------
+| X |   |   |
+
+AI move: 1
+
+| O |   | O |
+-------------
+| X | O | X |
+-------------
+| X |   |   |
+
+Move with 'X' to space [1-9]: 2
+
+| O | X | O |
+-------------
+| X | O | X |
+-------------
+| X |   |   |
+
+AI move: 9
+
+| O | X | O |
+-------------
+| X | O | X |
+-------------
+| X |   | O |
+
+Good game, but you lost
+```

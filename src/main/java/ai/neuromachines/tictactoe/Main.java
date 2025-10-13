@@ -31,7 +31,7 @@ public class Main {
         humanPlayer = isHumanFirst ? X : O;
         aiPlayer = isHumanFirst ? O : X;
 
-        board.printBoard();
+        printEmptyBoard();
         Optional<Player> winner;
         do {
             doMove();
@@ -41,7 +41,7 @@ public class Main {
         String gameResult = winner
                 .map(player -> (player == humanPlayer) ?
                         "Congratulations, you've won!" :
-                        "We're sorry, you lost")
+                        "Good game, but you lost")
                 .orElse("The game ended in a draw");
         println(gameResult);
     }
@@ -55,6 +55,7 @@ public class Main {
     private static boolean isHumanFirst() {
         do {
             try {
+                println();
                 println("0) O player");
                 println("1) X player");
                 String answer = readln("Select a player [0-1]: ");
@@ -67,6 +68,16 @@ public class Main {
             } catch (Exception ignore) {
             }
         } while (true);
+    }
+
+    private static void printEmptyBoard() {
+        println();
+        println("| 1 | 2 | 3 |");
+        println("-------------");
+        println("| 4 | 5 | 6 |");
+        println("-------------");
+        println("| 7 | 8 | 9 |");
+        println();
     }
 
     private void doMove() {
@@ -91,24 +102,25 @@ public class Main {
     }
 
     private void doAiMove() {
-        println("AI move:");
+        int move;
         try {
             float[] boardState = board.getState().getNetworkInput();
             network.input(boardState);
             network.propagate();
-            int move = argMax(network.output());
+            move = argMax(network.output());
             board.move(aiPlayer, move);
         } catch (Exception e) {
             // incorrect move, do random move
             while (true) {
                 try {
-                    int move = (int) Math.round(Math.random() * 8);
+                    move = (int) Math.round(Math.random() * 8.5 - 0.5);
                     board.move(aiPlayer, move);
                     break;
                 } catch (Exception ignore) {
                 }
             }
         }
+        println("AI move: " + (move + 1));
     }
 
     private static int argMax(float[] array) {
