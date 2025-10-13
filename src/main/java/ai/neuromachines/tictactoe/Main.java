@@ -6,8 +6,10 @@ import ai.neuromachines.network.Network;
 import java.io.IOException;
 import java.nio.channels.FileChannel;
 import java.nio.file.Path;
+import java.util.Optional;
 
-import static ai.neuromachines.tictactoe.State.*;
+import static ai.neuromachines.tictactoe.Player.O;
+import static ai.neuromachines.tictactoe.Player.X;
 import static java.lang.IO.println;
 import static java.lang.IO.readln;
 
@@ -16,9 +18,9 @@ public class Main {
     private static final Path path = Path.of("network.txt");  // Trained neural network file
     private final Board board = new Board();
     private final Network network;
-    private State humanPlayer = X;
-    private State aiPlayer = O;
-    private State currentPlayer = X;
+    private Player humanPlayer = X;
+    private Player aiPlayer = O;
+    private Player currentPlayer = X;
 
     public Main() throws IOException {
         this.network = openNetworkFromFile(path);
@@ -29,19 +31,18 @@ public class Main {
         humanPlayer = isHumanFirst ? X : O;
         aiPlayer = isHumanFirst ? O : X;
 
-        State winner;
+        Optional<Player> winner;
         do {
             board.printBoard();
             doMove();
             winner = board.getWinner();
-        } while (winner == BLANK && board.hasFreeSpace());
-        if (!board.hasFreeSpace()) {
-            println("The game ended in a draw");
-        } else if (winner == humanPlayer) {
-            println("Congratulations, you've won!");
-        } else {
-            println("We're sorry, you lost");
-        }
+        } while (winner.isEmpty() && board.hasFreeSpace());
+        String gameResult = winner
+                .map(player -> (player == humanPlayer) ?
+                        "Congratulations, you've won!" :
+                        "We're sorry, you lost")
+                .orElse("The game ended in a draw");
+        println(gameResult);
     }
 
     private static Network openNetworkFromFile(Path path) throws IOException {

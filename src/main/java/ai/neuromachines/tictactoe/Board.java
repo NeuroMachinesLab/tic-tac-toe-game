@@ -3,6 +3,8 @@ package ai.neuromachines.tictactoe;
 import ai.neuromachines.Assert;
 import lombok.Getter;
 
+import java.util.Optional;
+
 import static ai.neuromachines.tictactoe.State.*;
 import static java.lang.IO.print;
 import static java.lang.IO.println;
@@ -47,17 +49,16 @@ public class Board {
         }
     }
 
-    public void move(State player, int cell) {
-        Assert.isTrue(player != BLANK, "X or O player expected");
+    public void move(Player player, int cell) {
         Assert.isTrue(cell >= 0 && cell <= 8, "Incorrect move: " + cell);
         Assert.isTrue(state.get(cell) == BLANK, "Space is occupied: " + cell);
-        state.set(cell, player);
+        state.set(cell, player.toState());
     }
 
     /**
-     * @return BLANK if no winner, X or O otherwise
+     * @return X or O, otherwise empty optional
      */
-    public State getWinner() {
+    public Optional<Player> getWinner() {
         for (int[] cells : WIN_CELLS) {
             boolean oWin = true;
             boolean xWin = true;
@@ -74,12 +75,12 @@ public class Board {
                 }
             }
             if (oWin) {
-                return O;
+                return Optional.of(Player.O);
             } else if (xWin) {
-                return X;
+                return Optional.of(Player.X);
             }
         }
-        return BLANK;
+        return Optional.empty();
     }
 
     public boolean hasFreeSpace() {
