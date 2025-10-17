@@ -34,7 +34,7 @@
         <dependency>
             <groupId>com.github.NeuroMachinesLab</groupId>
             <artifactId>perceptron</artifactId>
-            <version>3.0</version>
+            <version>3.1</version>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
