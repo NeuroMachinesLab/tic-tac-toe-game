@@ -2,10 +2,13 @@
 
 # Pure Java Neural Network Tic Tac Toe Game
 
-<img src="https://github.com/user-attachments/assets/78345cbb-b406-4404-a358-195a3c49afcf" width="128px"/>
+<img src="https://github.com/user-attachments/assets/78345cbb-b406-4404-a358-195a3c49afcf" width="128px" alt="tic-tac-toe-game"/>
 
-This console program allows you to read Neural Network from the [network.txt](network.txt) file and play the
-Tic Tac Toe console Game.
+This console program allows you to read Neural Network from the
+[network-easy.txt](network-easy.txt),
+[network-medium.txt](network-medium.txt) or
+[network-hard.txt](network-hard.txt)
+file and play the Tic Tac Toe console Game.
 
 To play the game run:
 ```shell
@@ -13,7 +16,7 @@ To play the game run:
 java -jar .\target\tic-tac-toe-game-1.0.jar
 ```
 
-The Neural Network ([network.txt](network.txt)) is based on
+The Neural Network is based on
 [Perceptron [1]](https://github.com/NeuroMachinesLab/perceptron) and
 trained by [Q-Learning [2]](https://github.com/NeuroMachinesLab/tic-tac-toe-q-learning) data
 with the program from [repository [3]](https://github.com/NeuroMachinesLab/tic-tac-toe-network).
@@ -29,9 +32,14 @@ Example of one game:
 ```shell
 > java -jar .\target\tic-tac-toe-game-1.0.jar
 
-0) O player
+1) Easy
+2) Medium
+3) Hard
+Choose Difficulty  [1-3]: 3
+
 1) X player
-Select a player [0-1]: 1
+2) O player
+Select a player [1-2]: 1
 
 | 1 | 2 | 3 |
 -------------

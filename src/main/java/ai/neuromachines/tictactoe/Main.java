@@ -15,18 +15,16 @@ import static java.lang.IO.readln;
 
 @SuppressWarnings("SameParameterValue")
 public class Main {
-    private static final Path path = Path.of("network.txt");  // Trained neural network file
     private final Board board = new Board();
-    private final Network network;
+    private Network network;
     private Player humanPlayer = X;
     private Player aiPlayer = O;
     private Player currentPlayer = X;
 
-    public Main() throws IOException {
-        this.network = openNetworkFromFile(path);
-    }
+    void main()  throws IOException {
+        String level = chooseGameDifficulty();
+        network = openNetworkFromFile("network-" + level + ".txt"); // Trained neural network file
 
-    void main() {
         boolean isHumanFirst = isHumanFirst();
         humanPlayer = isHumanFirst ? X : O;
         aiPlayer = isHumanFirst ? O : X;
@@ -46,24 +44,43 @@ public class Main {
         println(gameResult);
     }
 
-    private static Network openNetworkFromFile(Path path) throws IOException {
+    private static Network openNetworkFromFile(String fileName) throws IOException {
+        Path path = Path.of(fileName);
         try (FileChannel ch = FileChannel.open(path)) {
             return NetworkSerializer.deserialize(ch);
         }
+    }
+
+    private static String chooseGameDifficulty() {
+        String[] levelNames = new String[]{"easy", "medium", "hard"};
+        do {
+            try {
+                println();
+                println("1) Easy");
+                println("2) Medium");
+                println("3) Hard");
+                String answer = readln("Choose Difficulty?  [1-3]: ");
+                int level = Integer.parseInt(answer);
+                if (level >= 1 && level <= 3) {
+                    return levelNames[level - 1];
+                }
+            } catch (Exception ignore) {
+            }
+        } while (true);
     }
 
     private static boolean isHumanFirst() {
         do {
             try {
                 println();
-                println("0) O player");
                 println("1) X player");
-                String answer = readln("Select a player [0-1]: ");
+                println("2) O player");
+                String answer = readln("Select a player [1-2]: ");
                 int player = Integer.parseInt(answer);
-                if (player == 0) {
-                    return false;
-                } else if (player == 1) {
+                if (player == 1) {
                     return true;
+                } else if (player == 2) {
+                    return false;
                 }
             } catch (Exception ignore) {
             }
