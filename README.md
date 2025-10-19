@@ -11,6 +11,7 @@ This console program allows you to read Neural Network from the
 file and play the Tic Tac Toe console Game.
 
 To play the game run:
+
 ```shell
 .\mvnw.cmd clean package
 java -jar .\target\tic-tac-toe-game-1.0.jar
@@ -21,6 +22,14 @@ The Neural Network is based on
 trained by [Q-Learning [2]](https://github.com/NeuroMachinesLab/tic-tac-toe-q-learning) data
 with the program from [repository [3]](https://github.com/NeuroMachinesLab/tic-tac-toe-network).
 
+Neural network parameters
+
+| Game difficulty              | Network parameters | How often the model identifies the optimal move, % |
+|------------------------------|--------------------|----------------------------------------------------|
+| [Easy](network-easy.txt)     | 66                 | 54.6                                               |
+| [Medium](network-medium.txt) | 180                | 75.9                                               |
+| [Hard](network-hard.txt)     | 1225               | 98.4                                               |
+
 ---
 [1] [Perceptron](https://github.com/NeuroMachinesLab/perceptron)<br>
 [2] [Q-Learning](https://github.com/NeuroMachinesLab/tic-tac-toe-q-learning)<br>
@@ -29,6 +38,7 @@ with the program from [repository [3]](https://github.com/NeuroMachinesLab/tic-t
 ### Console interface
 
 Example of one game:
+
 ```shell
 > java -jar .\target\tic-tac-toe-game-1.0.jar
 
